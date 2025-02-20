@@ -18,14 +18,14 @@
 # les 3 tiges du jeu sont représentés sous forme de tableaux vides 
 # indice 0 = disque du haut
 # chaque disque sera un int, représentant sa taille, de 1 à n
-jeu = {'départ'  : [],
-       'centre'  : [],
-       'arrivée' : []}
+game = {'start'  : [],
+        'middle' : [],
+        'end'    : []}
 
 # indique l'ordre des tiges, permet de déplacer un disque en fonction de l'indice
 # + 1 pour aller à droite, - 1 pour aller à gauche
 # en cherchant le nom correspondant dans le dictionnaire
-ordre = ("départ", "centre", "arrivée")
+order = ("start", "middle", "end")
 
 # indique si le nombre de pièces du jeu est pair ou impair
 # le mouvement de la pièce 1 dépend du nombre de pièces, pair ou impair
