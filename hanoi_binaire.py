@@ -84,20 +84,20 @@ def resouds_hanoi(n: int, f: __file__) -> bool :
   """
 
   # import des variables globales
-  global jeu
+  global game
   global impair
   # si le nombre de pièces est impair, passe impair à True
   if n % 2 != 0 : 
     impair = True
 
   # met les disques dans la tige de départ
-  jeu['départ'] = list(range(1, n + 1))
+  game['start'] = list(range(1, n + 1))
   # message de début de partie
   print("################", file = f)
   print(f"Début de partie", file = f)
   print("################\n", file = f)
   # et affiche l'état du plateau de jeu
-  print(f"départ : {jeu['départ']} - centre : {jeu['centre']} - arrivée : {jeu['arrivée']}", file = f)
+  print(f"start : {game['start']} - middle : {game['middle']} - end : {game['end']}", file = f)
   
   # calcul du nombre optimal de coups nécessaires 
   nombre_mouvs = 2**n - 1
@@ -108,7 +108,7 @@ def resouds_hanoi(n: int, f: __file__) -> bool :
     # et déplace le
     move = mouvement_disque(disque)
     # imprime le mouvement effectué et le nouvel état du plateau de jeu
-    print(f"Coup {i} :\nle disque {disque} à été déplacé dans la tige {move}.\ndépart : {jeu['départ']} - centre : {jeu['centre']} - arrivée : {jeu['arrivée']}", file = f)
+    print(f"Coup {i} :\nle disque {disque} à été déplacé dans la tige {move}.\nstart : {game['start']} - middle : {game['middle']} - end : {game['end']}", file = f)
   
   # termine en retournant True
   return True
@@ -177,8 +177,8 @@ def mouvement_disque(disque: int) -> str :
   """
 
   # import des variables globales
-  global jeu
-  global ordre
+  global game
+  global order
   global impair
   # variables pour contrôler la boulce
   cherche = True
@@ -186,13 +186,13 @@ def mouvement_disque(disque: int) -> str :
   # commence la recherche du disque
   while (cherche == True):
     # récupère le nom de la tige à l'indice i
-    nom_tige = ordre[i]
+    nom_tige = order[i]
     # cherche le disque dans la la tige du jeu ayant le même nom
-    if disque in jeu[nom_tige] :
+    if disque in game[nom_tige] :
       # arrête la recherche
       cherche = False
       # si tu trouves un disque retire-le
-      jeu[nom_tige].remove(disque)    
+      game[nom_tige].remove(disque)    
       # et cherche dans quelle tige le déplacer
       mouv = deplace_disque(disque, nom_tige)
       return mouv
@@ -217,32 +217,33 @@ def deplace_disque(disque : int, nom_tige : str) -> str :
   """
   # import variabe globale
   global impair
+  global game
   # fait un de ces mouvements si :
   # le nombre total de disques est pair et le disque est impair
   # ou le nombre total de disques est impair et le disque est pair
   if (disque % 2 == 1 and impair == False) or (disque % 2 == 0 and impair == True) :
-    if nom_tige == "départ" :
-      jeu["centre"].insert(0, disque)
-      return "centre"
-    elif nom_tige == "centre" :
-      jeu["arrivée"].insert(0, disque)
-      return "arrivée"
+    if nom_tige == "start" :
+      game["middle"].insert(0, disque)
+      return "middle"
+    elif nom_tige == "middle" :
+      game["end"].insert(0, disque)
+      return "end"
     else :
-      jeu["départ"].insert(0, disque)
-      return "départ"
+      game["start"].insert(0, disque)
+      return "start"
   # fait un de ces mouvements si :
   # le nombre total de disques est pair et le disque est pair
   # ou le nombre total de disques est impair et le disque est impair
   elif (disque % 2 == 0 and impair == False) or (disque % 2 == 1 and impair == True):
-    if nom_tige == "départ" :
-      jeu["arrivée"].insert(0, disque)
-      return "arrivée"
-    elif nom_tige == "centre" :
-      jeu["départ"].insert(0, disque)
-      return "départ"
+    if nom_tige == "start" :
+      game["end"].insert(0, disque)
+      return "end"
+    elif nom_tige == "middle" :
+      game["start"].insert(0, disque)
+      return "start"
     else :
-      jeu["centre"].insert(0, disque)
-      return "centre"
+      game["middle"].insert(0, disque)
+      return "middle"
 
 
 # lance la partie
